@@ -375,5 +375,42 @@ describe("soql-builder", function() {
       );
     });
   });
-     
+
+  /**
+   *
+   */
+  describe("Query with group option", function() {
+    var soql = SOQLBuilder.createSOQL({
+      table: "Opportunity",
+      group: "AccountId",
+      limit : 10
+    });
+
+    it("should equal to soql", function() {
+      assert.ok(soql ===
+        "SELECT Id FROM Opportunity " +
+        "GROUP BY AccountId " +
+        "LIMIT 10"
+      );
+    });
+  });
+
+  /**
+   *
+   */
+  describe("Query with multiple group option in array", function() {
+    var soql = SOQLBuilder.createSOQL({
+      table: "Opportunity",
+      group: ["AccountId", "Owner"],
+      limit : 10
+    });
+
+    it("should equal to soql", function() {
+      assert.ok(soql ===
+        "SELECT Id FROM Opportunity " +
+        "GROUP BY AccountId, Owner " +
+        "LIMIT 10"
+      );
+    });
+  });
 });
